@@ -8,5 +8,34 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Jan Kaßel <jan@kassel.works>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "hypermerge": "github:automerge/hypermerge#9c720eab",
+    "hyperswarm": "^2.2.0",
+    "hyperswarm-proxy": "^1.0.0",
+    "uuid": "^3.3.3"
+  },
+  "devDependencies": {
+    "husky": "^3.0.9",
+    "lint-staged": "^9.4.2",
+    "prettier": "^1.18.2"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,css,json,md}": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "prettier": {
+    "trailingComma": "es5",
+    "tabWidth": 2,
+    "semi": true,
+    "singleQuote": true,
+    "bracketSpacing": false
+  }
 }
