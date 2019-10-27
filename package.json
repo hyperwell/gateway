@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "A peer-to-peer (P2P) system that leverages collaboration, local-first principles, and more on W3C Web Annotations",
   "private": true,
-  "main": "index.js",
+  "main": "client.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -13,6 +13,7 @@
     "hypermerge": "github:automerge/hypermerge#9c720eab",
     "hyperswarm": "^2.2.0",
     "hyperswarm-proxy": "^1.0.0",
+    "path-match": "^1.2.4",
     "uuid": "^3.3.3"
   },
   "devDependencies": {
