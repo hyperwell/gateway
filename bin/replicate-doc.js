@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 const {Repo} = require('hypermerge');
 const Hyperswarm = require('hyperswarm');
-const createStore = require('../lib/repo-store');
+const {createStore} = require('../lib/repo-store');
 
 async function main() {
   const repoStore = await createStore();
