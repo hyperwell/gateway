@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 const {Repo} = require('hypermerge');
 const Hyperswarm = require('hyperswarm');
-const createStore = require('../lib/repo-store');
+const {createStore} = require('./lib/repo-store');
+const {serveSwarm} = require('./lib/http-swarm');
 
 async function main() {
   const repoStore = await createStore();
@@ -16,11 +17,9 @@ async function main() {
 
   if (repoConf.docs.length === 0) {
     const url = repo.create({hello: 'world'});
-    repo.doc(url, doc => {
-      console.log(doc);
-    });
+    console.log(await repo.doc(url));
 
-    repoStore.addDoc(id, url);
+    await repoStore.addDoc(id, url);
   } else {
     console.log(`Watching doc: ${repoConf.docs[0]}`);
 
@@ -30,9 +29,12 @@ async function main() {
       )
     );
 
-    process.on('SIGINT', () => {
+    const leaveSwarm = serveSwarm(repo, repoConf.docs[0]);
+
+    process.on('SIGINT', async () => {
       console.log('Closing watchers...');
 
+      await leaveSwarm();
       handles.forEach(handle => handle.close());
       repo.close();
 
