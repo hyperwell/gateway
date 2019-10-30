@@ -11,6 +11,7 @@
   "author": "Jan Kaßel <jan@kassel.works>",
   "license": "MIT",
   "dependencies": {
+    "debug": "^4.1.1",
     "hypermerge": "github:automerge/hypermerge#9c720eab",
     "hyperswarm": "^2.2.0",
     "hyperswarm-proxy": "^1.0.0",
