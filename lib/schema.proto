@@ -1,0 +1,38 @@
+enum DiscoveryEventType {
+	ANNOUNCE = 1;
+	UNANNOUNCE = 2;
+}
+
+message DiscoveryEvent {
+	required DiscoveryEventType type = 1;
+	required bytes id = 2;
+	required string url = 3;
+}
+
+enum RequestMethod {
+	GET = 1;
+	POST = 2;
+	PUT = 3;
+	DELETE = 4;
+}
+
+enum ResponseCode {
+	OK = 1;
+	NOT_FOUND = 2;
+	BAD_REQUEST = 3;
+	CREATED = 4;
+	UPDATED = 5;
+	DELETED = 6;
+}
+
+message RequestEvent {
+	required RequestMethod method = 1;
+	required string path = 2;
+	optional bytes data = 3;
+}
+
+message ResponseEvent {
+	optional ResponseCode code = 1;
+	required string path = 2;
+	optional bytes data = 3;
+}

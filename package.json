@@ -5,7 +5,7 @@
   "private": true,
   "main": "client.js",
   "scripts": {
-    "compile-protocol": "protocol-buffers lib/related/schema.proto -o lib/related/messages.js",
+    "compile-protocol": "protocol-buffers lib/schema.proto -o lib/messages.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Jan Kaßel <jan@kassel.works>",
