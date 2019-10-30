@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 const Hyperswarm = require('hyperswarm')
 const crypto = require('crypto')
-const {createRequest} = require('../lib/http-request')
+const {createRequest} = require('../lib/http/request')
 const {createStore} = require('../lib/repo-store')
 
 async function main() {
