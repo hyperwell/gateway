@@ -1,0 +1,10 @@
+enum EventType {
+	ANNOUNCE = 1;
+	UNANNOUNCE = 2;
+}
+
+message DiscoveryEvent {
+	required EventType type = 1;
+	required bytes id = 2;
+	required string url = 3;
+}
