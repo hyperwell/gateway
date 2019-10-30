@@ -16,6 +16,7 @@
     "hyperswarm": "^2.2.0",
     "hyperswarm-proxy": "^1.0.0",
     "path-match": "^1.2.4",
+    "protocol-buffers-encodings": "^1.1.0",
     "uuid": "^3.3.3"
   },
   "devDependencies": {
