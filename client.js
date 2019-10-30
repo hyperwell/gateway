@@ -23,14 +23,15 @@ async function main() {
   const closeDistribution = distributeDocs(id, repo, repoStore)
   console.log('all repos are up for distribution.')
 
-  process.on('SIGINT', async () => {
+  // TODO: debug proper shutdown
+  /* process.on('SIGINT', async () => {
     console.log('closing watchers...')
 
     await closeDistribution()
     await repoStore.destroy()
 
     process.exit(0)
-  })
+  }) */
 }
 
 main()
