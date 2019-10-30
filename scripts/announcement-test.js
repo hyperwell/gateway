@@ -4,13 +4,13 @@ const {DiscoverySwarm} = require('../lib/discovery/swarm')
 const wait = async duration =>
   new Promise(resolve => setTimeout(resolve, duration))
 
-if (process.argv.length < 3) {
-  console.log('Usage: node announcement-test.js <url>')
+if (process.argv.length < 4) {
+  console.log('Usage: node announcement-test.js <target> <url>')
   process.exit(1)
 }
 
 async function main() {
-  const swarm = new DiscoverySwarm('some-target', process.argv[2])
+  const swarm = new DiscoverySwarm(process.argv[2], process.argv[3])
 
   swarm.on('announce', url => {
     console.log(`New related document: ${url}`)

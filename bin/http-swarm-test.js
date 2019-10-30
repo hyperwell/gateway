@@ -10,11 +10,11 @@ async function main() {
 
   const swarm = Hyperswarm()
 
-  console.log(`Joining second swarm: annotations-${docUrl}`)
   const topic = crypto
     .createHash('sha256')
     .update(`annotations-${docUrl}`)
     .digest()
+  console.log(`joining second swarm: ${topic.toString('hex')}`)
 
   swarm.join(topic, {
     lookup: true,
@@ -23,6 +23,7 @@ async function main() {
 
   await new Promise(resolve => {
     swarm.once('connection', async socket => {
+      console.log('new connection')
       await createRequest(socket, `/annotations.jsonld`, true)
       await createRequest(socket, `/related.json`)
       resolve()
