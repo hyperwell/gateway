@@ -5,6 +5,7 @@
   "private": true,
   "main": "client.js",
   "scripts": {
+    "build": "browserify browser.js -t [ babelify ] | terser --mangle --compress > dist/browser-lib.js",
     "compile-protocol": "protocol-buffers lib/schema.proto -o lib/messages.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -21,10 +22,16 @@
     "uuid": "^3.3.3"
   },
   "devDependencies": {
+    "@babel/core": "^7.6.4",
+    "@babel/plugin-proposal-class-properties": "^7.5.5",
+    "@babel/preset-env": "^7.6.3",
+    "babelify": "^10.0.0",
+    "browserify": "^16.5.0",
     "husky": "^3.0.9",
     "lint-staged": "^9.4.2",
     "prettier": "^1.18.2",
-    "protocol-buffers": "^4.1.0"
+    "protocol-buffers": "^4.1.0",
+    "terser": "^4.3.9"
   },
   "husky": {
     "hooks": {
