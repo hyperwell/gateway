@@ -1,8 +1,7 @@
-#!/usr/bin/env node
 const {RequestSwarm} = require('../lib/bridge/request-swarm')
 
 if (process.argv.length < 3) {
-  console.log('Usage: node announcement-test.js <doc-url>')
+  console.log('usage: node announcement-test.js <doc-url>')
   process.exit(1)
 }
 
@@ -11,7 +10,7 @@ async function main() {
   let swarm
 
   await new Promise(resolve => {
-    swarm = new RequestSwarm(`annotations-${docUrl}`, {
+    swarm = new RequestSwarm(docUrl, {
       onConnection: async createRequest => {
         console.log(await createRequest('GET', '/annotations.jsonld'))
         console.log(await createRequest('GET', '/related.json'))
