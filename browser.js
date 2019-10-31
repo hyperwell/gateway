@@ -1,2 +1,3 @@
-const {RequestSwarm} = require('./lib/bridge/request-swarm')
+const {RequestSwarm} = require('./lib/request/browser-swarm')
+console.log('meh', RequestSwarm)
 module.exports = {RequestSwarm}

@@ -1,4 +1,4 @@
-const {RequestSwarm} = require('../lib/bridge/request-swarm')
+const {RequestSwarm} = require('../lib/request/abstract-swarm')
 
 if (process.argv.length < 3) {
   console.log('usage: node announcement-test.js <doc-url>')
