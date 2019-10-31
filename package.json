@@ -1,11 +1,11 @@
 {
   "name": "from-me-to-you",
   "version": "0.0.1",
-  "description": "A peer-to-peer (P2P) system that leverages collaboration, local-first principles, and more on W3C Web Annotations",
+  "description": "A P2P system that leverages collaboration, local-first principles, and more on W3C Web Annotations",
   "private": true,
   "main": "client.js",
   "scripts": {
-    "build": "browserify browser.js -t [ babelify ] | terser --mangle --compress > dist/browser-lib.js",
+    "build": "browserify browser.js --standalone from-me-to-you -t [ babelify ] | terser --mangle --compress > dist/browser-lib.js",
     "compile-protocol": "protocol-buffers lib/schema.proto -o lib/messages.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -15,7 +15,7 @@
     "debug": "^4.1.1",
     "hypermerge": "github:automerge/hypermerge#9c720eab",
     "hyperswarm": "^2.2.0",
-    "hyperswarm-proxy": "^1.0.0",
+    "hyperswarm-ws": "^1.0.0",
     "length-prefixed-stream": "^2.0.0",
     "path-match": "^1.2.4",
     "protocol-buffers-encodings": "^1.1.0",
