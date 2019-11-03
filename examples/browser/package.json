@@ -1,0 +1,22 @@
+{
+  "name": "me2u-example-browser",
+  "version": "0.1.0",
+  "description": "testing `from-me-to-you` in the browser",
+  "private": true,
+  "scripts": {
+    "build": "browserify index.js -o bundle.js",
+    "dev": "watchify index.js -o bundle.js & serve",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "from-me-to-you": "file:../../"
+  },
+  "devDependencies": {
+    "browserify": "^16.5.0",
+    "serve": "^11.2.0",
+    "watchify": "^3.11.1"
+  }
+}
