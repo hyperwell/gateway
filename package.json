@@ -1,23 +1,22 @@
 {
   "name": "from-me-to-you",
   "version": "0.1.0",
+  "author": "Jan Kaßel <jan@kassel.works>",
   "description": "A P2P system that leverages collaboration, local-first principles, and more on W3C Web Annotations",
   "private": true,
   "main": "client.js",
   "scripts": {
-    "build": "browserify browser.js --standalone from-me-to-you -t [ babelify ] -o dist/me2u.js",
-    "build-min": "browserify browser.js --standalone from-me-to-you -t [ babelify ] | terser --mangle --compress > dist/me2u.min.js",
+    "build": "browserify browser-bundle.js --standalone me2u -t [ babelify ] -o dist/me2u.js",
+    "build-min": "browserify browser-bundle.js --standalone me2u -t [ babelify ] | terser --mangle --compress > dist/me2u.min.js",
     "compile-protocol": "protocol-buffers lib/schema.proto -o lib/messages.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Jan Kaßel <jan@kassel.works>",
   "license": "MIT",
   "dependencies": {
-    "babel-polyfill": "^6.26.0",
     "debug": "^4.1.1",
     "hypermerge": "github:automerge/hypermerge#9c720eab",
     "hyperswarm": "^2.2.0",
-    "hyperswarm-ws": "^1.0.0",
+    "hyperswarm-ws": "^1.0.5",
     "length-prefixed-stream": "^2.0.0",
     "path-match": "^1.2.4",
     "protocol-buffers-encodings": "^1.1.0",
@@ -29,10 +28,12 @@
     "@babel/preset-env": "^7.6.3",
     "babelify": "^10.0.0",
     "browserify": "^16.5.0",
+    "core-js": "^3.3.6",
     "husky": "^3.0.9",
     "lint-staged": "^9.4.2",
     "prettier": "^1.18.2",
     "protocol-buffers": "^4.1.0",
+    "regenerator-runtime": "^0.13.3",
     "terser": "^4.3.9"
   },
   "husky": {
