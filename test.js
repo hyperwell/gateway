@@ -1,5 +1,5 @@
 const test = require('tape')
-const {parseId} = require('./lib/util/annotation')
+const {parseId} = require('./lib/annotation/meta')
 
 const docKey = 'FHLQ1NF8HE8YdhdSEVjyUGeUcRk9SEshvac3M3jQRvZU'
 const urlFixtures = [
