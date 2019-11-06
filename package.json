@@ -15,7 +15,7 @@
   "dependencies": {
     "debug": "^4.1.1",
     "hypermerge": "github:automerge/hypermerge#9c720eab",
-    "hyperswarm": "^2.2.0",
+    "hyperswarm": "^2.2.1",
     "hyperswarm-ws": "^1.0.5",
     "length-prefixed-stream": "^2.0.0",
     "path-match": "^1.2.4",
@@ -24,10 +24,10 @@
     "uuid": "^3.3.3"
   },
   "devDependencies": {
-    "@babel/core": "^7.6.4",
-    "@babel/plugin-proposal-class-properties": "^7.5.5",
+    "@babel/core": "^7.7.0",
+    "@babel/plugin-proposal-class-properties": "^7.7.0",
     "@babel/plugin-proposal-object-rest-spread": "^7.6.2",
-    "@babel/preset-env": "^7.6.3",
+    "@babel/preset-env": "^7.7.1",
     "babelify": "^10.0.0",
     "browserify": "^16.5.0",
     "core-js": "^3.3.6",
