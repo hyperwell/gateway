@@ -13,7 +13,7 @@ if (targetPath !== null) {
 const target =
   targetPath !== null ? fs.createWriteStream(process.argv[2]) : process.stdout
 
-browserify(`${__dirname}/browser-bundle.js`)
+browserify(`${__dirname}/browser-bundle.js`, {standalone: 'from-me-to-you'})
   .transform({global: true}, sanitizeManifest)
   .transform('babelify', {
     ...babelConf,
