@@ -9,7 +9,7 @@
     "build": "node build.js dist/me2u.js",
     "build-min": "node build.js | terser -m -c > dist/me2u.min.js",
     "compile-protocol": "protocol-buffers lib/schema.proto -o lib/messages.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "tape test.js"
   },
   "license": "MIT",
   "dependencies": {
@@ -36,6 +36,7 @@
     "prettier": "^1.18.2",
     "protocol-buffers": "^4.1.0",
     "regenerator-runtime": "^0.13.3",
+    "tape": "^4.11.0",
     "terser": "^4.3.9"
   },
   "husky": {
