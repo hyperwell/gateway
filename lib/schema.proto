@@ -23,6 +23,7 @@ enum ResponseCode {
 	CREATED = 4;
 	UPDATED = 5;
 	DELETED = 6;
+	INTERNAL_ERROR = 7;
 }
 
 message RequestEvent {
