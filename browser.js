@@ -1,2 +1,2 @@
-const {createRequestSwarm} = require('./lib/request/browser-swarm')
-module.exports = {createRequestSwarm}
+const {RequestSwarm} = require('./lib/request/browser-swarm')
+module.exports = {RequestSwarm}
