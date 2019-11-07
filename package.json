@@ -39,6 +39,7 @@
     "protocol-buffers": "^4.1.0",
     "regenerator-runtime": "^0.13.3",
     "tape": "^4.11.0",
+    "tape-promise": "^4.0.0",
     "terser": "^4.3.9"
   },
   "husky": {
