@@ -21,15 +21,30 @@ const fixture = {
 
 // TODO: test also via websocket, and especially the websocket gateway
 
+let url, repoStore
+const initPeer = async () => {
+  if (!url) {
+    repoStore = await createStore({volatile: true})
+    const {id, repo} = await repoStore.addRepo()
+    url = repo.create({annotations: []})
+    await repoStore.addDoc(id, url)
+
+    const closeDistribution = distributeDocs(id, repo, repoStore)
+
+    const handleFinish = async () => {
+      await closeDistribution()
+      await repoStore.destroy()
+    }
+    test.onFinish(handleFinish)
+    test.onFailure(handleFinish)
+  }
+
+  return url
+}
+
 test(`testing client node with ${amount} serial client requests`, async function(t) {
   t.plan(amount)
-
-  const repoStore = await createStore({volatile: true})
-  const {id, repo} = await repoStore.addRepo()
-  const url = repo.create({annotations: []})
-  await repoStore.addDoc(id, url)
-
-  const closeDistribution = distributeDocs(id, repo, repoStore)
+  const url = await initPeer()
 
   const initialClient = new RequestSwarm(url)
   const createdAnnotation = await initialClient.createAnnotation(fixture)
@@ -46,20 +61,12 @@ test(`testing client node with ${amount} serial client requests`, async function
     await client.destroy()
     await wait(10)
   }
-
-  await closeDistribution()
-  await repoStore.destroy()
 })
 
 test(`testing client node with ${amount} parallel client requests`, async function(t) {
+  t.timeoutAfter(3000)
   t.plan(amount)
-
-  const repoStore = await createStore({volatile: true})
-  const {id, repo} = await repoStore.addRepo()
-  const url = repo.create({annotations: []})
-  await repoStore.addDoc(id, url)
-
-  const closeDistribution = distributeDocs(id, repo, repoStore)
+  const url = await initPeer()
 
   const initialClient = new RequestSwarm(url)
   const createdAnnotation = await initialClient.createAnnotation(fixture)
@@ -84,7 +91,4 @@ test(`testing client node with ${amount} parallel client requests`, async functi
     )
     await requests[j].client.destroy()
   }
-
-  await closeDistribution()
-  await repoStore.destroy()
 })
