@@ -19,28 +19,99 @@ const fixture = {
   target: 'http://example.org/target1',
 }
 
-// TODO: test also via websocket, and especially the websocket gateway
-
-let url, repoStore
 const initPeer = async () => {
-  if (!url) {
-    repoStore = await createStore({volatile: true})
-    const {id, repo} = await repoStore.addRepo()
-    url = repo.create({annotations: []})
-    await repoStore.addDoc(id, url)
+  const repoStore = await createStore({volatile: true})
+  const {id, repo} = await repoStore.addRepo()
+  const url = repo.create({annotations: []})
+  await repoStore.addDoc(id, url)
 
-    const closeDistribution = distributeDocs(id, repo, repoStore)
+  const closeDistribution = distributeDocs(id, repo, repoStore)
 
-    const handleFinish = async () => {
-      await closeDistribution()
-      await repoStore.destroy()
-    }
-    test.onFinish(handleFinish)
-    test.onFailure(handleFinish)
+  const handleFinish = async () => {
+    await closeDistribution()
+    await repoStore.destroy()
   }
+  test.onFinish(handleFinish)
+  test.onFailure(handleFinish)
 
   return url
 }
+
+// TODO: test also via websocket, and especially the websocket gateway
+
+test('creating and getting a single annotation via request-swarm', async function(t) {
+  const url = await initPeer()
+  const client = new RequestSwarm(url)
+  const createdAnnotation = await client.createAnnotation(fixture)
+
+  const {annotationId} = parseId(createdAnnotation.id)
+  t.deepEqual(
+    createdAnnotation,
+    await client.getAnnotation(annotationId),
+    'check annotation distribution API equality'
+  )
+
+  await client.destroy()
+})
+
+test('updating an annotation via request-swarm', async function(t) {
+  const url = await initPeer()
+  const client = new RequestSwarm(url)
+
+  await client.createAnnotation(fixture)
+  const createdAnnotation = await client.createAnnotation(fixture)
+
+  const {annotationId} = parseId(createdAnnotation.id)
+  const updatedAnnotation = {
+    ...createdAnnotation,
+    body: {
+      foo: 'bar',
+    },
+  }
+
+  await client.updateAnnotation(updatedAnnotation)
+  t.deepEqual(
+    updatedAnnotation,
+    await client.getAnnotation(annotationId),
+    'check annotation distribution equality'
+  )
+
+  await client.destroy()
+})
+
+test('getting all annotations via request-swarm', async function(t) {
+  const url = await initPeer()
+  const client = new RequestSwarm(url)
+  const annotations = [
+    await client.createAnnotation(fixture),
+    await client.createAnnotation(fixture),
+  ]
+
+  t.deepEqual(
+    annotations,
+    await client.getAnnotations(),
+    'check annotation distribution API equality'
+  )
+
+  await client.destroy()
+})
+
+test('deleting an annotations via request-swarm', async function(t) {
+  const url = await initPeer()
+  const client = new RequestSwarm(url)
+  const firstAnnotation = await client.createAnnotation(fixture)
+  const {id} = await client.createAnnotation(fixture)
+  const {annotationId} = parseId(id)
+
+  await client.deleteAnnotation(annotationId)
+  t.deepEqual(
+    [firstAnnotation],
+    await client.getAnnotations(),
+    'check annotation distribution API equality'
+  )
+
+  await client.destroy()
+})
 
 test(`testing client node with ${amount} serial client requests`, async function(t) {
   t.plan(amount)
