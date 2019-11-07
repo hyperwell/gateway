@@ -7,7 +7,7 @@ const {distributeDocs} = require('../lib/distribution')
 const {RequestSwarm} = require('../lib/request/swarm')
 
 const wait = duration => new Promise(resolve => setTimeout(resolve, duration))
-const amount = 20
+const amount = 30
 const fixture = {
   '@context': 'http://www.w3.org/ns/anno.jsonld',
   type: 'Annotation',
