@@ -1,6 +1,14 @@
 # From Me to You: Peer-to-Peer Collaboration Infrastructure with Linked Data Annotations
 
-Implementation of a peer-to-peer (P2P) system that leverages collaboration, local-first principles, and more on [W3C Web Annotations](https://www.w3.org/TR/annotation-model/). More on that: https://kassel.works/thesis
+Implementation of a peer-to-peer (P2P) system that leverages collaboration, local-first principles, and more on [W3C Web Annotations](https://www.w3.org/TR/annotation-model/). The system provides software for loca nodes that store annotation, was well as an API for integrating clients over native networking as well as WebSockets.
+
+More on that: https://kassel.works/thesis
+
+## Terminology
+
+- **Swarm**: As annotations (and all other data of this system) are basically decentralized, we can't just connect to a server given its IP address. Hence, we connect to a decentralized routing table ([Hyperswarm](https://github.com/hyperswarm/hyperswarm), a [Kademlia DHT](https://en.wikipedia.org/wiki/Kademlia)) and join swarms on particular topics, where participants are expected to provide topic-related information.
+- **CRDT**: A Conflict-Free Replicated Datatype (CRDT) is a data structure that is expected to have no merge conflicts when applying changes from different sources (think a heavenly Git) under the assumption of Eventual Consistency ([Shapiro et al., 2011](https://hal.inria.fr/hal-00932836/file/CRDTs_SSS-2011.pdf)). Thus, we can collaboratively work on a distributed document without an authoritarian server that handles merging.
+- **Peer** and **Client**: P2P networks generally consist of equal peers which request and serve information alike. However, the [Web Annotation protocol](https://www.w3.org/TR/annotation-protocol/) bears a reliance on HTTP. As opposed to [stream-based replication](https://github.com/mafintosh/hyperdb/issues/153) of distributed data, annotations are provided on a per-request basis. We decided to distinguish between **a)** ‘Peers’ that replicate natively and provide data via HTTP to swarms and **b)** ‘Clients’ that request data from within swarms.
 
 ## Architecture
 
@@ -23,7 +31,7 @@ Execute all commands with `DEBUG=me2u*` to receive debug information.
 - `node scripts/bridge-test.js <doc-url>` Will attempt to load a document and related docs via the bridge network from a running client.
 - `node scripts/console.js <doc-url>` Open a development console that connects to the distribution swarm of a given document. Execute arbitrary requests of the HTTP-ish protocol: `<method> <path>` (e.g., `get /annotations.jsonld`).
 
-## API
+## Client API
 
 (tbc)
 
