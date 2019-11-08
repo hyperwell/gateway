@@ -7,7 +7,7 @@ const {distributeDocs} = require('../lib/distribution')
 const {RequestSwarm} = require('../lib/request/swarm')
 
 const wait = duration => new Promise(resolve => setTimeout(resolve, duration))
-const amount = 30
+const amount = 100
 const fixture = {
   '@context': 'http://www.w3.org/ns/anno.jsonld',
   type: 'Annotation',
@@ -135,7 +135,7 @@ test(`testing client node with ${amount} serial client requests`, async function
 })
 
 test(`testing client node with ${amount} parallel client requests`, async function(t) {
-  t.timeoutAfter(3000)
+  t.timeoutAfter(15000)
   t.plan(amount)
   const url = await initPeer()
 
@@ -149,8 +149,6 @@ test(`testing client node with ${amount} parallel client requests`, async functi
   for (let i = 0; i < amount; i++) {
     const client = new RequestSwarm(url)
     requests.push({client, request: client.getAnnotation(annotationId)})
-
-    await wait(10)
   }
 
   const results = await Promise.all(requests.map(({request}) => request))
