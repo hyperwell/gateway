@@ -1,6 +1,6 @@
 # From Me to You: Peer-to-Peer Collaboration Infrastructure with Linked Data Annotations
 
-Implementation of a peer-to-peer (P2P) system that leverages collaboration, local-first principles, and more on [W3C Web Annotations](https://www.w3.org/TR/annotation-model/). The system provides software for loca nodes that store annotation, was well as an API for integrating clients over native networking as well as WebSockets.
+Implementation of a peer-to-peer (P2P) system that leverages collaboration, local-first principles, and more on [W3C Web Annotations](https://www.w3.org/TR/annotation-model/). The system provides software for local nodes that store annotation, was well as an API for integrating clients over native sockets as well as WebSockets.
 
 More on that: https://kassel.works/thesis
 
