@@ -17,7 +17,7 @@
     "debug": "^4.1.1",
     "hypermerge": "github:automerge/hypermerge#9c720eab",
     "hyperswarm": "^2.2.1",
-    "hyperswarm-ws": "^1.0.5",
+    "hyperswarm-ws": "^1.1.0",
     "length-prefixed-stream": "^2.0.0",
     "path-match": "^1.2.4",
     "protocol-buffers-encodings": "^1.1.0",
