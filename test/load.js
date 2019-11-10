@@ -1,121 +1,44 @@
 const tape = require('tape')
 const test = require('tape-promise').default(tape)
+const {fixture, wait, initPeer, waitOnReady} = require('./util')
 
 const {parseId} = require('../lib/annotation/meta')
-const {createStore} = require('../lib/repo-store')
-const {distributeDocs} = require('../lib/distribution')
 const {RequestSwarm} = require('../lib/request/swarm')
+const {
+  RequestSwarm: BrowserRequestSwarm,
+} = require('../lib/request/browser-swarm')
 
-const wait = duration => new Promise(resolve => setTimeout(resolve, duration))
 const amount = 100
-const fixture = {
-  '@context': 'http://www.w3.org/ns/anno.jsonld',
-  type: 'Annotation',
-  body: {
-    type: 'TextualBody',
-    value: 'Comment text',
-    format: 'text/plain',
-  },
-  target: 'http://example.org/target1',
-}
-
-const initPeer = async () => {
-  const repoStore = await createStore({volatile: true})
-  const {id, repo} = await repoStore.addRepo()
-  const url = repo.create({annotations: []})
-  await repoStore.addDoc(id, url)
-
-  const closeDistribution = distributeDocs(id, repo, repoStore)
-
-  const handleFinish = async () => {
-    await closeDistribution()
-    await repoStore.destroy()
-  }
-  test.onFinish(handleFinish)
-  test.onFailure(handleFinish)
-
-  return url
-}
 
 // TODO: test also via websocket, and especially the websocket gateway
 
-test('creating and getting a single annotation via request-swarm', async function(t) {
-  const url = await initPeer()
-  const client = new RequestSwarm(url)
-  const createdAnnotation = await client.createAnnotation(fixture)
+test(`testing client node with ${amount} serial client requests over websockets`, async function(t) {
+  t.plan(amount)
+  const url = await initPeer(test)
 
+  const initialClient = new BrowserRequestSwarm(url)
+  await waitOnReady(initialClient)
+  const createdAnnotation = await initialClient.createAnnotation(fixture)
   const {annotationId} = parseId(createdAnnotation.id)
-  t.deepEqual(
-    createdAnnotation,
-    await client.getAnnotation(annotationId),
-    'check annotation distribution API equality'
-  )
+  await initialClient.destroy()
 
-  await client.destroy()
-})
+  for (let i = 0; i < amount; i++) {
+    const swarm = new BrowserRequestSwarm(url)
+    await waitOnReady(swarm)
 
-test('updating an annotation via request-swarm', async function(t) {
-  const url = await initPeer()
-  const client = new RequestSwarm(url)
-
-  await client.createAnnotation(fixture)
-  const createdAnnotation = await client.createAnnotation(fixture)
-
-  const {annotationId} = parseId(createdAnnotation.id)
-  const updatedAnnotation = {
-    ...createdAnnotation,
-    body: {
-      foo: 'bar',
-    },
+    t.deepEqual(
+      createdAnnotation,
+      await swarm.getAnnotation(annotationId),
+      'check annotation distribution API equality'
+    )
+    await swarm.destroy()
+    await wait(10)
   }
-
-  await client.updateAnnotation(updatedAnnotation)
-  t.deepEqual(
-    updatedAnnotation,
-    await client.getAnnotation(annotationId),
-    'check annotation distribution equality'
-  )
-
-  await client.destroy()
-})
-
-test('getting all annotations via request-swarm', async function(t) {
-  const url = await initPeer()
-  const client = new RequestSwarm(url)
-  const annotations = [
-    await client.createAnnotation(fixture),
-    await client.createAnnotation(fixture),
-  ]
-
-  t.deepEqual(
-    annotations,
-    await client.getAnnotations(),
-    'check annotation distribution API equality'
-  )
-
-  await client.destroy()
-})
-
-test('deleting an annotations via request-swarm', async function(t) {
-  const url = await initPeer()
-  const client = new RequestSwarm(url)
-  const firstAnnotation = await client.createAnnotation(fixture)
-  const {id} = await client.createAnnotation(fixture)
-  const {annotationId} = parseId(id)
-
-  await client.deleteAnnotation(annotationId)
-  t.deepEqual(
-    [firstAnnotation],
-    await client.getAnnotations(),
-    'check annotation distribution API equality'
-  )
-
-  await client.destroy()
 })
 
 test(`testing client node with ${amount} serial client requests`, async function(t) {
   t.plan(amount)
-  const url = await initPeer()
+  const url = await initPeer(test)
 
   const initialClient = new RequestSwarm(url)
   const createdAnnotation = await initialClient.createAnnotation(fixture)
@@ -137,7 +60,7 @@ test(`testing client node with ${amount} serial client requests`, async function
 test(`testing client node with ${amount} parallel client requests`, async function(t) {
   t.timeoutAfter(15000)
   t.plan(amount)
-  const url = await initPeer()
+  const url = await initPeer(test)
 
   const initialClient = new RequestSwarm(url)
   const createdAnnotation = await initialClient.createAnnotation(fixture)
