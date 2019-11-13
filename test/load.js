@@ -10,8 +10,6 @@ const {
 
 const amount = 100
 
-// TODO: test also via websocket, and especially the websocket gateway
-
 test(`testing client node with ${amount} serial client requests over websockets`, async function(t) {
   t.plan(amount)
   const url = await initPeer(test)
@@ -23,7 +21,11 @@ test(`testing client node with ${amount} serial client requests over websockets`
   await initialClient.destroy()
 
   for (let i = 0; i < amount; i++) {
-    const swarm = new BrowserRequestSwarm(url)
+    const swarm = new BrowserRequestSwarm(url, {
+      handleError: err => {
+        throw err
+      },
+    })
     await waitOnReady(swarm)
 
     t.deepEqual(
