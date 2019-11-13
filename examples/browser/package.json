@@ -4,7 +4,7 @@
   "description": "Testing `from-me-to-you` in the browser",
   "private": true,
   "scripts": {
-    "build": "browserify index.js | exorcist bundle.js.map > bundle.js",
+    "build": "browserify index.js -d | exorcist bundle.js.map > bundle.js",
     "dev": "watchify index.js -o 'exorcist bundle.js.map > bundle.js' -d & serve",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
