@@ -14,16 +14,23 @@ enum RequestMethod {
 	POST = 2;
 	PUT = 3;
 	DELETE = 4;
+	SUB = 5;
 }
 
 enum ResponseCode {
 	OK = 1;
-	NOT_FOUND = 2;
-	BAD_REQUEST = 3;
-	CREATED = 4;
-	UPDATED = 5;
-	DELETED = 6;
+	CREATED = 2;
+	UPDATED = 3;
+	DELETED = 4;
+
+	NOT_FOUND = 5;
+	BAD_REQUEST = 6;
 	INTERNAL_ERROR = 7;
+
+	PUB_INIT = 8;
+	PUB_DATA = 9;
+	PUB_CLOSE = 10;
+	PUB_ERROR = 11;
 }
 
 message RequestEvent {
