@@ -1,9 +1,18 @@
 require('core-js/stable')
 require('regenerator-runtime/runtime')
-const {RequestSwarm} = require('from-me-to-you/browser')
+const {RequestSwarm, DiscoverySwarm} = require('from-me-to-you/browser')
 
 async function main() {
-  const docUrl = window.location.hash.substr(1)
+  const discoverySwarm = new DiscoverySwarm(
+    'http://localhost:9000/document/lhipfj6r9agvao'
+  )
+  const docUrl = await new Promise(resolve =>
+    discoverySwarm.on('ready', () => {
+      discoverySwarm.once('announce', resolve)
+    })
+  )
+
+  // const docUrl = window.location.hash.substr(1)
   console.log(`joining request swarm with doc url: ${docUrl}`)
 
   // initialize swarm, wait until it's ready
