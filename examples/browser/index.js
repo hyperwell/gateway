@@ -37,6 +37,8 @@ ${JSON.stringify(data, null, 2)}`)
       }),
     2500
   )
+
+  setTimeout(async () => await subscription.close(), 3500)
 }
 
 main()
