@@ -34,6 +34,7 @@ bundler
   .transform({global: true}, sanitizeManifest)
   .transform('babelify', {
     ...babelConf,
+    global: true,
     only: [
       /^(?:.*\/node_modules\/(?:hyperswarm|hyperswarm-ws|hyperswarm-proxy|debug)\/|(?!.*\/node_modules\/)).*$/,
     ],
