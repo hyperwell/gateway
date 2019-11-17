@@ -4,12 +4,12 @@
   "author": "Jan Kaßel <jan@kassel.works>",
   "description": "A P2P system that leverages collaboration, local-first principles, and more on W3C Web Annotations",
   "private": true,
-  "main": "client.js",
+  "main": "browser.js",
   "scripts": {
     "build": "node build.js -d | exorcist dist/me2u.js.map > dist/me2u.js",
     "build-min": "node build.js | terser -m -c > dist/me2u.min.js",
     "compile-protocol": "protocol-buffers lib/schema.proto -o lib/messages.js",
-    "start": "node client.js",
+    "start": "node peer.js",
     "test": "tape test/*.js"
   },
   "license": "MIT",
