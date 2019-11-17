@@ -9,6 +9,7 @@
     "build": "node build.js -d | exorcist dist/me2u.js.map > dist/me2u.js",
     "build-min": "node build.js | terser -m -c > dist/me2u.min.js",
     "compile-protocol": "protocol-buffers lib/schema.proto -o lib/messages.js",
+    "start": "node client.js",
     "test": "tape test/*.js"
   },
   "license": "MIT",
