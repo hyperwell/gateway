@@ -16,16 +16,17 @@ async function main() {
   console.log(`read repository with id: ${id}`)
 
   if (docs.length === 0) {
-    const url = repo.create({hello: 'world'})
-    await repoStore.addDoc(id, url)
+    await repoStore.addDoc(
+      id,
+      'http://localhost:9000/document/lhipfj6r9agvao',
+      "Jan's notes"
+    )
   }
 
-  const closeDistribution = distributeDocs(id, repo, repoStore)
+  const closeDistribution = await distributeDocs(id, repo, repoStore)
   console.log('all repos are up for distribution.')
 
   const shutdown = async () => {
-    console.log('closing watchers...')
-
     await closeDistribution()
     await repoStore.destroy()
     process.exit(0)
