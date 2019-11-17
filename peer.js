@@ -18,7 +18,7 @@ async function main() {
   if (docs.length === 0) {
     await repoStore.addDoc(
       id,
-      'http://localhost:9000/document/lhipfj6r9agvao',
+      'http://localhost:9000/document/h8ezybqxi6nhgj',
       "Jan's notes"
     )
   }

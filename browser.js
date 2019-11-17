@@ -1,2 +1,3 @@
 const {RequestSwarm} = require('./lib/request/browser-swarm')
-module.exports = {RequestSwarm}
+const {DiscoverySwarm} = require('./lib/discovery/client')
+module.exports = {RequestSwarm, DiscoverySwarm}
