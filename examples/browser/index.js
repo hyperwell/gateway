@@ -3,9 +3,7 @@ require('regenerator-runtime/runtime')
 const {RequestSwarm, DiscoverySwarm} = require('from-me-to-you/browser')
 
 async function main() {
-  const discoverySwarm = new DiscoverySwarm(
-    'http://localhost:9000/document/lhipfj6r9agvao'
-  )
+  const discoverySwarm = new DiscoverySwarm('https://www.example.com/foo')
   const docUrl = await new Promise(resolve =>
     discoverySwarm.on('ready', () => {
       discoverySwarm.once('announce', resolve)
@@ -31,10 +29,14 @@ ${JSON.stringify(await swarm.getRelated(), null, 2)}`)
 
   // create a subscription
   const subscription = await swarm.getAnnotations({subscribe: true})
-  subscription.on('pub', data =>
+  subscription.on('pub', data => {
     console.log(`PUB:
 ${JSON.stringify(data, null, 2)}`)
-  )
+
+    document.getElementById('items').innerHTML = data
+      .map(item => `<li>${item.message}</li>`)
+      .join('')
+  })
   subscription.on('close', () => console.log('PUB closed.'))
   subscription.on('error', err => console.error('PUB error:', err))
 
@@ -42,12 +44,12 @@ ${JSON.stringify(data, null, 2)}`)
   setTimeout(
     () =>
       swarm.createAnnotation({
-        foo: 'bar',
+        message: 'hello, world',
       }),
     2500
   )
 
-  setTimeout(async () => await subscription.close(), 3500)
+  setTimeout(async () => await subscription.close(), 10000)
 }
 
 main()
