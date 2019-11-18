@@ -40,16 +40,17 @@ ${JSON.stringify(data, null, 2)}`)
   subscription.on('close', () => console.log('PUB closed.'))
   subscription.on('error', err => console.error('PUB error:', err))
 
-  // trigger subscription with a write action
-  setTimeout(
-    () =>
-      swarm.createAnnotation({
-        message: 'hello, world',
-      }),
-    2500
-  )
+  document.getElementById('add').addEventListener('click', async event => {
+    event.preventDefault()
+    await swarm.createAnnotation({
+      message: 'hello, world',
+    })
+  })
 
-  setTimeout(async () => await subscription.close(), 10000)
+  setTimeout(async () => {
+    document.getElementById('add').disabled = true
+    await subscription.close()
+  }, 10000)
 }
 
 main()
