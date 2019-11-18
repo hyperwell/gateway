@@ -16,11 +16,7 @@ async function main() {
   console.log(`read repository with id: ${id}`)
 
   if (docs.length === 0) {
-    await repoStore.addDoc(
-      id,
-      'http://localhost:9000/document/h8ezybqxi6nhgj',
-      "Jan's notes"
-    )
+    await repoStore.addDoc(id, 'https://www.example.com/foo', 'Example Notes')
   }
 
   const closeDistribution = await distributeDocs(id, repo, repoStore)

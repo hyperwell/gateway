@@ -27,7 +27,7 @@ Execute all commands with `DEBUG=me2u*` to receive debug information.
 ### Development Scripts
 
 - `node scripts/announcement-test.js <target> <doc-url>` Test the distribution announcement functionality. Will join peer nodes in pretending to provide a particular document for a particular JSON-LD target.
-- `node scripts/replicate-doc.js <doc-url> [-e]` Will start a volatile peer, but add an already existing document to the repository. If `-e` (edit) provided, the specified document will be edited with a random number variable added.
+- `node scripts/add-notebook.js <target> [<title>]` Will add a new notebook for the given target and title to the repository.
 - `node scripts/bridge-test.js <doc-url>` Will attempt to load a document and related docs via the bridge network from a running peer.
 - `node scripts/console.js <doc-url>` Open a development console that connects to the distribution swarm of a given document. Execute arbitrary requests of the HTTP-ish protocol: `<method> <path>` (e.g., `get /annotations.jsonld`).
 
