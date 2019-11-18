@@ -4,6 +4,8 @@ Implementation of a peer-to-peer (P2P) system that leverages collaboration, loca
 
 More on that: https://kassel.works/thesis
 
+**Important**: This is alpha software for research. Your annotations will be available publicly and accessible without authentication.
+
 ## Terminology
 
 - **Swarm**: As annotations (and all other data of this system) are basically decentralized, we can't just connect to a server given its IP address. Hence, we connect to a decentralized routing table ([Hyperswarm](https://github.com/hyperswarm/hyperswarm), a [Kademlia DHT](https://en.wikipedia.org/wiki/Kademlia)) and join swarms on particular topics, where participants are expected to provide topic-related information.
