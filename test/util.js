@@ -9,7 +9,18 @@ const fixture = {
     value: 'Comment text',
     format: 'text/plain',
   },
-  target: 'http://example.org/target1',
+  target: 'https://www.example.org/foo',
+}
+
+const createFixtureSet = (docUrl, n) => {
+  const set = []
+  for (let i = 0; i < n; i++) {
+    set.push({
+      ...fixture,
+      id: `${docUrl}/${i}.jsonld`,
+    })
+  }
+  return set
 }
 
 const wait = duration => new Promise(resolve => setTimeout(resolve, duration))
@@ -35,6 +46,7 @@ const initPeer = async test => {
 
 module.exports = {
   fixture,
+  createFixtureSet,
   wait,
   waitOnReady,
   initPeer,
