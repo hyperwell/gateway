@@ -1,28 +1,28 @@
 {
-  "name": "from-me-to-you",
+  "name": "@hyperwell/gateway",
   "version": "0.1.0",
   "author": "Jan Kaßel <jan@kassel.works>",
   "description": "A P2P system that leverages collaboration, local-first principles, and more on W3C Web Annotations",
   "private": true,
   "main": "browser.js",
+  "bin": {
+    "hyperwell-gateway": "./bin/server.js"
+  },
   "scripts": {
-    "build": "node build.js -d | exorcist dist/me2u.js.map > dist/me2u.js",
-    "build-min": "node build.js | terser -m -c > dist/me2u.min.js",
-    "compile-protocol": "protocol-buffers lib/schema.proto -o lib/messages.js",
-    "start": "node peer.js",
-    "test": "tape test/*.js"
+    "build": "node build.js -d | exorcist dist/hyperwell.js.map > dist/hyperwell.js",
+    "build-min": "node build.js | terser -m -c > dist/hyperwell.min.js",
+    "start": "node ./bin/server.js",
+    "test": "echo 'no tests specified'; exit 1"
   },
   "license": "MIT",
   "dependencies": {
+    "@hapi/boom": "^8.0.1",
+    "@hapi/hapi": "^18.4.0",
     "browserify-package-json": "^1.0.1",
     "debug": "^4.1.1",
     "hypermerge": "github:automerge/hypermerge#9c720eab",
     "hyperswarm": "^2.3.1",
-    "hyperswarm-ws": "github:falafeljan/hyperswarm-ws#7bc2",
-    "length-prefixed-stream": "^2.0.0",
-    "path-match": "^1.2.4",
-    "protocol-buffers-encodings": "^1.1.0",
-    "pump": "^3.0.0",
+    "node-cache": "^5.0.2",
     "uuid": "^3.3.3"
   },
   "devDependencies": {
@@ -33,17 +33,15 @@
     "babelify": "^10.0.0",
     "browserify": "^16.5.0",
     "core-js": "^3.4.1",
+    "dotenv": "^8.2.0",
     "exorcist": "^1.0.1",
     "husky": "^3.0.9",
     "lint-staged": "^9.4.2",
-    "microtime": "^3.0.0",
     "minimist": "^1.2.0",
     "mkdirp": "^0.5.1",
     "prettier": "^1.19.1",
     "protocol-buffers": "^4.1.0",
     "regenerator-runtime": "^0.13.3",
-    "tape": "^4.11.0",
-    "tape-promise": "^4.0.0",
     "terser": "^4.4.0"
   },
   "engines": {
