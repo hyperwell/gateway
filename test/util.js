@@ -1,53 +1,147 @@
-const {createStore} = require('../lib/repo-store')
-const {distributeDocs} = require('../lib/distribution')
+const test = require('tape')
+const {
+  normalizeId,
+  normalizeAnnotation,
+  denormalizeAnnotation,
+  encodeDocUrl,
+  decodeDocUrl,
+} = require('../lib/util')
 
+const docUrl = 'foo-container'
+const annotationId = '1c76c270-11fb-11ea-b65a-d9e5ad101414'
 const fixture = {
-  '@context': 'http://www.w3.org/ns/anno.jsonld',
   type: 'Annotation',
-  body: {
-    type: 'TextualBody',
-    value: 'Comment text',
-    format: 'text/plain',
+  body: [
+    {
+      type: 'TextualBody',
+      value: 'foobar',
+    },
+  ],
+  target: {
+    selector: [
+      {
+        type: 'TextQuoteSelector',
+        exact: 'baz',
+      },
+      {
+        type: 'TextPositionSelector',
+        start: 98,
+        end: 104,
+      },
+    ],
   },
-  target: 'https://www.example.org/foo',
+  '@context': 'http://www.w3.org/ns/anno.jsonld',
+  id: `https://www.example.com/annotations/${encodeDocUrl(
+    docUrl
+  )}/${annotationId}`,
 }
 
-const createFixtureSet = (docUrl, n) => {
-  const set = []
-  for (let i = 0; i < n; i++) {
-    set.push({
+test('normalizeId', t => {
+  const fixtures = [
+    [
+      `https://www.example.com/annotations/${encodeDocUrl(
+        docUrl
+      )}/${annotationId}`,
+      'www.example.com',
+      null,
+      docUrl,
+      annotationId,
+    ],
+    [
+      `https://www.example.com/annotations/${encodeDocUrl(
+        docUrl
+      )}/${annotationId}`,
+      'www.example2.com',
+      null,
+      docUrl,
+      null,
+    ],
+    [
+      `https://www.example.com/annotations/${encodeDocUrl(
+        docUrl
+      )}/${annotationId}`,
+      'www.example.com',
+      null,
+      'bar-container',
+      null,
+    ],
+    [
+      `https://www.example.com:80/annotations/${encodeDocUrl(
+        docUrl
+      )}/${annotationId}`,
+      'www.example.com',
+      80,
+      docUrl,
+      annotationId,
+    ],
+    [
+      `http://www.example.com:80/annotations/${encodeDocUrl(
+        docUrl
+      )}/${annotationId}`,
+      'www.example.com',
+      80,
+      docUrl,
+      annotationId,
+      false,
+    ],
+    [
+      `https://www.example.com:80/annotations/${encodeDocUrl(
+        docUrl
+      )}/${annotationId}`,
+      'www.example.com',
+      80,
+      docUrl,
+      null,
+      false,
+    ],
+  ]
+  t.plan(fixtures.length)
+
+  for (const [id, hostname, port, docUrl, expectedId, ssl = true] of fixtures) {
+    t.equal(
+      normalizeId(hostname, docUrl, id, {port, ssl}),
+      expectedId,
+      'Annotation IDs do match'
+    )
+  }
+})
+
+test('normalizeAnnotation', t => {
+  t.plan(1)
+  const normalizedAnnotation = normalizeAnnotation(
+    'www.example.com',
+    docUrl,
+    fixture,
+    {ssl: true}
+  )
+  t.deepEqual(
+    normalizedAnnotation,
+    {
       ...fixture,
-      id: `${docUrl}/${i}.jsonld`,
-    })
-  }
-  return set
-}
+      id: annotationId,
+    },
+    'Normalized annotation does match'
+  )
+})
 
-const wait = duration => new Promise(resolve => setTimeout(resolve, duration))
-const waitOnReady = swarm => new Promise(resolve => swarm.on('ready', resolve))
+test('denormalizeAnnotation', t => {
+  t.plan(1)
+  const annotation = denormalizeAnnotation(
+    'www.example.com',
+    docUrl,
+    {...fixture, id: annotationId},
+    {ssl: true}
+  )
+  t.deepEqual(
+    annotation,
+    {
+      ...fixture,
+      id: `https://www.example.com/annotations/${encodeDocUrl(
+        docUrl
+      )}/${annotationId}`,
+    },
+    'Normalized annotation does match'
+  )
+})
 
-const initPeer = async test => {
-  const repoStore = await createStore({volatile: true})
-  const {id, repo} = await repoStore.addRepo()
-  const url = repo.create({annotations: []})
-  await repoStore.addDoc(id, url)
-
-  const closeDistribution = distributeDocs(id, repo, repoStore)
-
-  const handleFinish = async () => {
-    await closeDistribution()
-    await repoStore.destroy()
-  }
-  test.onFinish(handleFinish)
-  test.onFailure(handleFinish)
-
-  return url
-}
-
-module.exports = {
-  fixture,
-  createFixtureSet,
-  wait,
-  waitOnReady,
-  initPeer,
-}
+test('denormalizeAnnotation')
