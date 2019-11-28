@@ -12,7 +12,7 @@
     "build": "node build.js -d | exorcist dist/hyperwell.js.map > dist/hyperwell.js",
     "build-min": "node build.js | terser -m -c > dist/hyperwell.min.js",
     "start": "node ./bin/server.js",
-    "test": "echo 'no tests specified'; exit 1"
+    "test": "tape test/*.js"
   },
   "license": "MIT",
   "dependencies": {
@@ -42,6 +42,7 @@
     "prettier": "^1.19.1",
     "protocol-buffers": "^4.1.0",
     "regenerator-runtime": "^0.13.3",
+    "tape": "^4.11.0",
     "terser": "^4.4.0"
   },
   "engines": {
