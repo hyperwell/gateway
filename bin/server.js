@@ -18,8 +18,6 @@ async function main() {
     },
   })
 
-  console.log(argv)
-
   await createServer(new HyperwellSwarm(), Number.parseInt(argv.port), {
     ssl: argv.ssl,
     hostname: argv.hostname,
