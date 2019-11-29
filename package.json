@@ -34,7 +34,6 @@
     "babelify": "^10.0.0",
     "browserify": "^16.5.0",
     "core-js": "^3.4.1",
-    "dotenv": "^8.2.0",
     "exorcist": "^1.0.1",
     "husky": "^3.0.9",
     "lint-staged": "^9.4.2",
