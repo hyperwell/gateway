@@ -20,6 +20,7 @@
     "@hapi/hapi": "^18.4.0",
     "browserify-package-json": "^1.0.1",
     "debug": "^4.1.1",
+    "hapi-plugin-websocket": "^2.2.0",
     "hypermerge": "github:automerge/hypermerge#9c720eab",
     "hyperswarm": "^2.3.1",
     "node-cache": "^5.0.2",
