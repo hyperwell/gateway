@@ -5,7 +5,7 @@ const HyperwellSwarm = require('../lib/swarm')
 
 async function main() {
   const argv = parseArgs(process.argv.slice(2), {
-    string: ['port', 'hostname'],
+    string: ['port', 'host'],
     boolean: ['ssl'],
     alias: {
       port: ['p'],
@@ -13,14 +13,14 @@ async function main() {
     },
     default: {
       port: '3000',
-      hostname: 'localhost',
+      host: 'localhost:3000',
       ssl: false,
     },
   })
 
   await createServer(new HyperwellSwarm(), Number.parseInt(argv.port), {
     ssl: argv.ssl,
-    hostname: argv.hostname,
+    host: argv.host,
   })
 }
 
