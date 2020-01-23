@@ -1,8 +1,8 @@
-name: Main workflow
+name: Run tests
 on: [push]
 jobs:
   run:
-    name: Run tests
+    name: Run npm tests
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
