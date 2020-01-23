@@ -8,6 +8,12 @@ More on that: https://kassel.works/thesis
 
 ## Usage
 
+Start a gateway with `npm start` or `./bin/server.js`. The gateway accepts the following arguments:
+
+- `--port <number>` (`-p`): The port number to listen on. Defaults to `3000`. Example: `--port 8080`.
+- `--host <hostname>`: The public hostname. Defaults to `localhost:3000`. Example: `--host www.example.com:8080`
+- `--ssl` (`-s`): The gateway is being served via SSL. This will not make the gateway actually terminate HTTPS requests (it listens for standard HTTP requests), but will transform annotation IDs accordingly, using the `https:` scheme. Defaults to `false` (not set).
+
 (tbc).
 
 ## License
