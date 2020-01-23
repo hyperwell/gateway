@@ -43,7 +43,6 @@ test('normalizeId', t => {
         docUrl
       )}/${annotationId}`,
       'www.example.com',
-      null,
       docUrl,
       annotationId,
     ],
@@ -52,7 +51,6 @@ test('normalizeId', t => {
         docUrl
       )}/${annotationId}`,
       'www.example2.com',
-      null,
       docUrl,
       null,
     ],
@@ -61,7 +59,6 @@ test('normalizeId', t => {
         docUrl
       )}/${annotationId}`,
       'www.example.com',
-      null,
       'bar-container',
       null,
     ],
@@ -69,8 +66,7 @@ test('normalizeId', t => {
       `https://www.example.com:80/annotations/${encodeDocUrl(
         docUrl
       )}/${annotationId}`,
-      'www.example.com',
-      80,
+      'www.example.com:80',
       docUrl,
       annotationId,
     ],
@@ -78,8 +74,7 @@ test('normalizeId', t => {
       `http://www.example.com:80/annotations/${encodeDocUrl(
         docUrl
       )}/${annotationId}`,
-      'www.example.com',
-      80,
+      'www.example.com:80',
       docUrl,
       annotationId,
       false,
@@ -88,8 +83,7 @@ test('normalizeId', t => {
       `https://www.example.com:80/annotations/${encodeDocUrl(
         docUrl
       )}/${annotationId}`,
-      'www.example.com',
-      80,
+      'www.example.com:80',
       docUrl,
       null,
       false,
@@ -97,9 +91,9 @@ test('normalizeId', t => {
   ]
   t.plan(fixtures.length)
 
-  for (const [id, hostname, port, docUrl, expectedId, ssl = true] of fixtures) {
+  for (const [id, hostname, docUrl, expectedId, ssl = true] of fixtures) {
     t.equal(
-      normalizeId(hostname, docUrl, id, {port, ssl}),
+      normalizeId(hostname, docUrl, id, {ssl}),
       expectedId,
       'Annotation IDs do match'
     )
