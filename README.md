@@ -1,6 +1,8 @@
 # Hyperwell Gateway
 
-Implementation of a peer-to-peer (P2P) system that leverages collaboration, local-first principles, and more on [W3C Web Annotations](https://www.w3.org/TR/annotation-model/). The system provides software for local nodes that store annotations, as well as a gateway server that implements the [W3C Web Annotation Protocol](https://www.w3.org/TR/annotation-protocol/).
+[![DOI](https://zenodo.org/badge/208063924.svg)](https://zenodo.org/badge/latestdoi/208063924)
+
+Implementation of a peer-to-peer (P2P) system that leverages collaboration, local-first principles, and more on [W3C Web Annotations](https://www.w3.org/TR/annotation-model/). The system provides software for local nodes that store annotations, as well as a gateway server that implements the [W3C Web Annotation Protocol](https://www.w3.org/TR/annotation-protocol/). The gateway provides institutional exposure & archival, as well as an interface for HTTP annotation clients.
 
 More on that: https://kassel.works/thesis
 
