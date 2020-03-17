@@ -20,7 +20,7 @@
     "hapi-plugin-websocket": "^2.2.0",
     "hypermerge": "github:automerge/hypermerge#63182f",
     "hyperswarm": "^2.3.1",
-    "minimist": "^1.2.0",
+    "minimist": "^1.2.2",
     "node-cache": "^5.0.2",
     "uuid": "^3.3.3"
   },
