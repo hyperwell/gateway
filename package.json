@@ -14,21 +14,21 @@
   "license": "MIT",
   "dependencies": {
     "@hapi/boom": "^8.0.1",
-    "@hapi/hapi": "^18.4.0",
+    "@hapi/hapi": "^18.4.1",
     "browserify-package-json": "^1.0.1",
     "debug": "^4.1.1",
-    "hapi-plugin-websocket": "^2.2.0",
+    "hapi-plugin-websocket": "^2.3.0",
     "hypermerge": "github:automerge/hypermerge#63182f",
-    "hyperswarm": "^2.3.1",
-    "minimist": "^1.2.0",
-    "node-cache": "^5.0.2",
-    "uuid": "^3.3.3"
+    "hyperswarm": "^2.9.0",
+    "minimist": "^1.2.5",
+    "node-cache": "^5.1.0",
+    "uuid": "^3.4.0"
   },
   "devDependencies": {
-    "husky": "^3.0.9",
-    "lint-staged": "^9.4.2",
+    "husky": "^3.1.0",
+    "lint-staged": "^9.5.0",
     "prettier": "^1.19.1",
-    "tape": "^4.11.0"
+    "tape": "^4.13.2"
   },
   "engines": {
     "node": ">=12.0.0"
