@@ -1,8 +1,8 @@
-name: Run tests
+name: tests
 on: [push]
 jobs:
   run:
-    name: Run npm tests
+    name: npm test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
