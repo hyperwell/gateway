@@ -2,7 +2,7 @@
 
 [![DOI](https://zenodo.org/badge/208063924.svg)](https://zenodo.org/badge/latestdoi/208063924)
 
-Proof-of-contept implementation of a peer-to-peer (P2P) system that leverages collaboration, local-first principles, and more on [W3C Web Annotations](https://www.w3.org/TR/annotation-model/). The system provides software for local nodes that store annotations, as well as a gateway server that implements the [Web Annotation Protocol](https://www.w3.org/TR/annotation-protocol/).
+Proof-of-concept implementation of a peer-to-peer (P2P) system that leverages collaboration, local-first principles, and more on [W3C Web Annotations](https://www.w3.org/TR/annotation-model/). The system provides software for local nodes that store annotations, as well as a gateway server that implements the [Web Annotation Protocol](https://www.w3.org/TR/annotation-protocol/).
 
 For establishing an environment of [local-first applications](https://www.inkandswitch.com/local-first.html) for collaborative annotation, we store collections of annotations called **notebooks** in [Hypermerge](https://github.com/automerge/hypermerge) documents. These documents are distributed via the [hyperswarm](https://github.com/hyperswarm/hyperswarm) decentralized network and merged without conflicts via [automerge](https://github.com/automerge/automerge).
 
@@ -24,7 +24,7 @@ Run a gateway server via `npm start` or `./bin/server.js`. The CLI accepts the f
 
 ## API
 
-The gateway exposes an web-based API as a superset of the [Web Annotation Protocol](https://www.w3.org/TR/annotation-protocol/), including support for batch operations as well as subscribing to real-time updates on notebooks via the WebSocket protocol. In the following, the `<notebook>` identifier corresponds to the notion of [‘containers’](https://www.w3.org/TR/ldp/#ldpc) on the LDP. We simply use a hexadecimal encoding of the respective Hypermerge document URL (`hypermerge://abc123...`) for URL safety. `<annotation>` corresponds to the ID of an annotation within a notebook, which commonly is a [UUID](https://tools.ietf.org/html/rfc4122) string.
+The gateway exposes a web-based API as a superset of the [Web Annotation Protocol](https://www.w3.org/TR/annotation-protocol/), including support for batch operations as well as subscribing to real-time updates on notebooks via the WebSocket protocol. In the following, the `<notebook>` identifier corresponds to the notion of [‘containers’](https://www.w3.org/TR/ldp/#ldpc) on the LDP. We simply use a hexadecimal encoding of the respective Hypermerge document URL (`hypermerge://abc123...`) for URL safety. `<annotation>` corresponds to the ID of an annotation within a notebook, which commonly is a [UUID](https://tools.ietf.org/html/rfc4122) string.
 
 - `/annotations/<notebook>`. REST endpoint for operations on an entire notebook. This endpoint supports retrieval of all of its annotations (`GET`) and creation of new a new annotation (`POST`).
 - `/annotations/<notebook>/<annotation>`. REST endpoint for operations on a particular annotation within a notebook. This endpoint supports retrieval (`GET`), editing (`PUT`), and deletion (`DELETE`).
@@ -35,4 +35,4 @@ The gateway exposes an web-based API as a superset of the [Web Annotation Protoc
 
 ## License
 
-[MIT License](/LICENSE), see `./LICENSE`.
+MIT License, see [`./LICENSE`](/LICENSE).
