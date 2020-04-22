@@ -2,7 +2,11 @@
 
 [![DOI](https://zenodo.org/badge/208063924.svg)](https://zenodo.org/badge/latestdoi/208063924)
 
-Implementation of a peer-to-peer (P2P) system that leverages collaboration, local-first principles, and more on [W3C Web Annotations](https://www.w3.org/TR/annotation-model/). The system provides software for local nodes that store annotations, as well as a gateway server that implements the [W3C Web Annotation Protocol](https://www.w3.org/TR/annotation-protocol/). The gateway provides institutional exposure & archival, as well as an interface for HTTP annotation clients.
+Proof-of-contept implementation of a peer-to-peer (P2P) system that leverages collaboration, local-first principles, and more on [W3C Web Annotations](https://www.w3.org/TR/annotation-model/). The system provides software for local nodes that store annotations, as well as a gateway server that implements the [Web Annotation Protocol](https://www.w3.org/TR/annotation-protocol/).
+
+For establishing an environment of [local-first applications](https://www.inkandswitch.com/local-first.html) for collaborative annotation, we store collections of annotations called **notebooks** in [Hypermerge](https://github.com/automerge/hypermerge) documents. These documents are distributed via the [hyperswarm](https://github.com/hyperswarm/hyperswarm) decentralized network and merged without conflicts via [automerge](https://github.com/automerge/automerge).
+
+The Hyperwell gateway aims to bridge the decentralized network and the web, offering collaborative annotation to Linked Data systems and web-based annotation environments alike by implementing the W3C Web Annotation specifications. For users, the gateway aims to offer institutional affiliation and archiving.
 
 ![Hyperwell architecture](architecture.png)
 
@@ -12,7 +16,7 @@ We laid out the motivation behind the decentralized annotation architecture of H
 
 ## Usage
 
-Start a gateway via `npm start` or `./bin/server.js`. The CLI accepts the following arguments:
+Run a gateway server via `npm start` or `./bin/server.js`. The CLI accepts the following arguments:
 
 - `--port <number>` (`-p`): The port number to listen on. Defaults to `3000`. Example: `--port 8080`.
 - `--host <hostname>`: The public hostname. Defaults to `localhost:3000`. Example: `--host www.example.com:8080`
