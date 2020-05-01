@@ -14,5 +14,3 @@ const handle = repo.watch(url, () => {})
 console.log(`New notebook created.
 Document URL: ${url}
 Encoded URL: ${encodeDocUrl(url)}`)
-
-process.on('SIGINT', () => handle.close())
