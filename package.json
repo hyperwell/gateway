@@ -1,8 +1,8 @@
 {
   "name": "@hyperwell/gateway",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "author": "Jan Kaßel <jan@kassel.works>",
-  "description": "A P2P system that leverages collaboration, local-first principles, and more on W3C Web Annotations",
+  "description": "A P2P system that leverages collaboration, local-first principles, and more on W3C Web Annotation",
   "private": true,
   "bin": {
     "hyperwell-gateway": "./bin/server.js"
