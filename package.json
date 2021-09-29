@@ -18,7 +18,7 @@
     "browserify-package-json": "^1.0.1",
     "debug": "^4.1.1",
     "etag": "^1.8.1",
-    "hapi-plugin-websocket": "^2.3.0",
+    "hapi-plugin-websocket": "^2.3.5",
     "hypermerge": "github:automerge/hypermerge#63182f",
     "hyperswarm": "^2.9.0",
     "minimist": "^1.2.5",
